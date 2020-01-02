@@ -2,27 +2,20 @@
 import os
 import re
 import json
-import shutil
 import requests
 
 from pathlib import Path
 from datetime import datetime
 
-#from sql_fns import query_stations
-#from sql_fns import properties_query
+from weather import WeatherData
 from sql_fns import load_weather_data
 
 
 def main():
-    #property_ids = properties_query()
-    files = ['weather_data/%s' % f for f in os.listdir('weather_data')
-             if f.endswith('json')]
-    src_file_directory = Path('weather_data')
-    dst_file_directory = src_file_directory / 'processed'
-    files = (p for p in src_file_directory.iterdir() if p.suffix == '.json')
+    files = WeatherData.read_files()
     for f in files:
         parse_weather(f)
-        shutil.move(str(f), str(dst_file_directory), copy_function='copy2')
+        WeatherData.move_processed_file(f)
 
 
 def parse_weather(file_path):

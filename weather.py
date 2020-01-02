@@ -1,11 +1,51 @@
 
 import re
 import json
+import shutil
 import requests
 
+from pathlib import Path
 from datetime import datetime
 
 from sql_fns import query_stations
+
+
+class WeatherApi(object):
+    '''Class for file objects containing API data'''
+    url_latest = 'https://api.weather.gov/stations/%s/observations/latest'
+    url_history = 'https://api.weather.gov/stations/%s/observations'
+
+    def __init__(self, station_id):
+        self.station_id = station_id
+
+
+class WeatherData(object):
+    '''Class for file objects containing API data'''
+    new_file_directory = Path('data')
+    processed_file_directory = Path('data/processed')
+
+    def __init__(self, station_id):
+        self.station_id = station_id
+
+    def store_weather_data(self, json_data):
+        dt = re.sub(r'[\:\-\s]+', '_', str(datetime.now())).split('.')[0]
+        file_path = (str(WeatherData.new_file_directory / '%s_%s.json')
+                        % (dt, self.station_id))
+        with open(file_path, 'w') as f:
+            json.dump(json_data, f)
+        return None
+
+    def read_files():
+        files = (p for p in WeatherData.new_file_directory.iterdir()
+                 if p.suffix == '.json')
+        return files
+
+    def move_processed_file(file_path):
+        shutil.move(str(file_path), str(WeatherData.processed_file_directory),
+            copy_function='copy2')
+        return None
+
+
 
 
 def main():
@@ -21,7 +61,9 @@ def weather_api_call(station_id_list):
         dt = str(datetime.now()).split('.')[0]
         print('Processing...%s %s' % (url, dt))
         r = requests.get(url)
-        store_weather_data(station_id, r.json())
+        weather_data = WeatherData(station_id)
+        weather_data.store_weather_data(r.json())
+        #store_weather_data(station_id, r.json())
     return None
 
 
