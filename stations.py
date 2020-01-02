@@ -12,7 +12,7 @@ def main():
 
 
 def store_station_data(stations_data):
-
+    '''Store station data in the stations table.'''
     data_list = []
     for station in stations_data:
         station_id = station['properties']['stationIdentifier']

@@ -40,7 +40,7 @@ class MySQL(object):
 
 
 def sql_store_station_data(data_list):
-    '''Select the buiding and data from train table'''
+    '''Insert select station data from the json file'''
 
     cmd = '''
             INSERT INTO stations
@@ -49,6 +49,7 @@ def sql_store_station_data(data_list):
             VALUES
             (%s,%s,%s,%s,%s,%s,%s,%s);
             '''
+
     sql = MySQL(cmd)
     for data in data_list:
         sql.insert(data)
@@ -57,8 +58,63 @@ def sql_store_station_data(data_list):
     sql.cnx.close()
 
 
-def weather_api_call(station_ids):
-    pass
+def load_weather_data(data):
+
+    cmd = '''INSERT INTO weather_conditions_raw
+            (station_id,
+             ts,
+             text_description,
+             temperature,
+             temperature_unit,
+             dewpoint,
+             dewpoint_unit,
+             wind_direction,
+             wind_direction_unit,
+             wind_speed,
+             wind_speed_unit,
+             wind_gust,
+             wind_gust_unit,
+             barometric_pressure,
+             barometric_pressure_unit,
+             visibility,
+             visibility_unit,
+             precipitation_last_hour,
+             precipitation_last_hour_unit,
+             relative_humidity,
+             relative_humidity_unit,
+             wind_chill,
+             wind_chill_unit,
+             heat_index,
+             heat_index_unit)
+            VALUES
+            (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,
+            %s,%s,%s)
+            ;
+            '''
+    sql = MySQL(cmd)
+    results = sql.insert(data)
+    sql.cursor.close()
+    sql.cnx.commit()
+    sql.cnx.close()
+
+
+def query_stations():
+    '''query the set of stations in the nearby_stations table and return
+        the station_ids'''
+
+    cmd = '''
+            SELECT DISTINCT station_id
+            FROM nearby_stations
+            WHERE disabled = 0
+            ;
+            '''
+    sql = MySQL(cmd)
+    results = sql.query()
+    sql.cursor.close()
+    sql.cnx.commit()
+    sql.cnx.close()
+    station_id_list = [item['station_id'] for item in results]
+    return station_id_list
 
 
 def stations_call(property_id):
@@ -71,6 +127,7 @@ def stations_call(property_id):
             WHERE property_id = %s
             ;
             '''
+
     sql = MySQL(cmd)
     results = sql.query(property_id)
     data = {item['station_id']: float(item['distance']) for item in results}
