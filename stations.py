@@ -5,7 +5,6 @@ from sql_fns import sql_store_station_data
 
 
 def main():
-    #stations_api()
     station_file_path = 'station_data.json'
     stations_data = read_station_data(station_file_path)
     store_station_data(stations_data)
@@ -25,7 +24,7 @@ def store_station_data(stations_data):
         station_name = station['properties']['name']
 
         data_list.append((station_id, coordinate_1, coordinate_2, elevation,
-                elevation_units, url, tz, station_name))
+                          elevation_units, url, tz, station_name))
     sql_store_station_data(data_list)
 
 
