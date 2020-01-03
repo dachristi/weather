@@ -44,7 +44,7 @@ def sql_store_station_data(data_list):
 
     cmd = '''
             INSERT INTO stations
-            (station_id, coordinate_1, coordinate_2, elevation,
+            (station_id, degrees_east, degrees_north, elevation,
                     elevation_unit, url, tz, name)
             VALUES
             (%s,%s,%s,%s,%s,%s,%s,%s);
