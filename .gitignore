@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Config file for MySQL
+config.json
+
+notes.txt
+
+# No need to add data files to git repo
+data/
