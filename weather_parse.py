@@ -1,3 +1,4 @@
+#!/home/Envs/weather/bin/python3
 
 import os
 import re
@@ -14,7 +15,11 @@ from sql_fns import load_weather_data
 def main():
     files = WeatherData.read_files()
     for f in files:
-        parse_weather(f)
+        try:
+            parse_weather(f)
+        except:
+            WeatherData.move_error_file(f)
+            continue
         WeatherData.move_processed_file(f)
 
 
