@@ -25,6 +25,7 @@ class WeatherData(object):
     '''Class for file objects containing API data'''
     new_file_directory = Path('data')
     processed_file_directory = Path('data/processed')
+    error_file_directory = Path('data/error')
 
     def __init__(self, station_id):
         self.station_id = station_id
@@ -44,6 +45,11 @@ class WeatherData(object):
 
     def move_processed_file(file_path):
         shutil.move(str(file_path), str(WeatherData.processed_file_directory),
+            copy_function='copy2')
+        return None
+
+    def move_error_file(file_path):
+        shutil.move(str(file_path), str(WeatherData.error_file_directory),
             copy_function='copy2')
         return None
 
