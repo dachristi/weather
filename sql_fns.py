@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
 import json
-import mysql.connector
-
+from pathlib import Path
 from datetime import datetime
+
+import mysql.connector
 
 
 class MySQL(object):
-    config_file = '/Users/dc/Documents/projects/weather/config.json'
+    working_dir = Path('.')
+    #config_file = '/Users/dc/Documents/projects/weather/config.json'
+    config_file = working_dir / 'config.json'
     with open(config_file, 'r') as f:
         config = json.load(f)
 
