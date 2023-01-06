@@ -135,7 +135,7 @@ def main():
     parser.add_argument('--init_stations', action='store_true', help='Initialize stations table')
     args = parser.parse_args()
     if args.init_stations:
-        property_ids = query_property_ids
+        property_ids = query_property_ids()
         for property_id in property_ids:
             station = WeatherStations(property_id)
             station_count = station.get_stations()
