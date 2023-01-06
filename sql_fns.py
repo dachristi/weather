@@ -56,7 +56,7 @@ def store_station_data(data_list):
             '''
     mysql = MySQL(cmd)
     for data in data_list:
-        mysql.insert(data)
+        mysql.insert(*data)
     mysql.cursor.close()
     mysql.cnx.commit()
     mysql.cnx.close()
