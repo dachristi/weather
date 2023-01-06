@@ -137,7 +137,8 @@ def main():
     if args.init_stations:
         property_ids = query_property_ids
         for property_id in property_ids:
-            stationWeatherStations
+            station = WeatherStations(property_id)
+            station_count = station.get_stations()
         print('Done')
         return None
     station_ids = query_station_ids()
