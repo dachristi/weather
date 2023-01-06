@@ -9,6 +9,7 @@ import re
 from datetime import datetime
 
 from sql_fns import query_property_coordinates
+from sql_fns import store_nearby_stations
 from sql_fns import store_station_data
 from sql_fns import store_weather_data
 from sql_fns import query_property_ids
