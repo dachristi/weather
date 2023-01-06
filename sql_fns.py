@@ -45,7 +45,7 @@ def query_station_ids():
     return data
 
 
-def store_station_data(data_list):
+def store_station_data(data):
 
     cmd = '''
             INSERT INTO weather_stations
