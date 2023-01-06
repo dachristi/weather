@@ -98,7 +98,31 @@ def query_property_ids():
     return data
 
 
-
+def store_nearby_stations(distance=25):
+    cmd = '''
+            INSERT IGNORE INTO nearby_stations
+            (distance, station_id, property_id)
+            SELECT
+              SQRT(POWER(p.latitude - s.latitude, 2) +
+                   POWER(p.longitude - s.longitude, 2)) * 69 AS distance,
+              s.station_id,
+              p.id
+            FROM
+              properties p
+              JOIN stations s
+            #WHERE p.id = 2
+            #WHERE p.id in (4, 96, 104)
+            WHERE SQRT(POWER(p.latitude - s.latitude, 2) +
+                 POWER(p.longitude - s.longitude, 2)) * 69 <= %s
+            ORDER BY 3,1
+            ;
+    '''
+    mysql = MySQL(cmd)
+    mysql.insert(distance)
+    mysql.cursor.close()
+    mysql.cnx.commit()
+    mysql.cnx.close()
+    return None
 
 
 

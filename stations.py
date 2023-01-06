@@ -20,7 +20,7 @@ class WeatherStations(object):
     Given coordinates, retreive the list of stations and store them in a table.
     '''
 
-    def __init__(self, property_id):
+    def __init__(self, property_id, station_distance=25):
         self.property_id = property_id
         self.latitude, self.longitude = query_property_coordinates(self.property_id)
 
@@ -29,6 +29,8 @@ class WeatherStations(object):
                 % (self.latitude, self.longitude))
         r = requests.get(url)
         station_count = self.parse_station_data(r.text)
+        print('Filtering list to nearby stations')
+        store_nearby_stations(station_distance)
         return station_count
 
     def parse_station_data(self, r_content):
