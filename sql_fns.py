@@ -91,7 +91,7 @@ def query_property_ids():
             '''
     mysql = MySQL(cmd)
     results = mysql.select()
-    data = [item['property_id'] for item in results]
+    data = [item['id'] for item in results]
     mysql.cursor.close()
     mysql.cnx.close()
     return data
