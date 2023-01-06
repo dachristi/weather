@@ -11,9 +11,11 @@ from datetime import datetime
 from sql_fns import query_property_coordinates
 from sql_fns import store_station_data
 from sql_fns import store_weather_data
+from sql_fns import query_property_ids
 from sql_fns import query_station_ids
 
-class Station(object):
+
+class WeatherStations(object):
     '''
     Given coordinates, retreive the list of stations and store them in a table.
     '''
@@ -133,7 +135,8 @@ def main():
     parser.add_argument('--init_stations', action='store_true', help='Initialize stations table')
     args = parser.parse_args()
     if args.init_stations:
-        initialize_stations_table()
+        property_ids =
+        WeatherStations
         print('Done')
         return None
     station_ids = query_station_ids()

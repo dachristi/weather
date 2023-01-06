@@ -83,6 +83,18 @@ def store_weather_data(station_id, timestamp, temperature, relative_humidity, we
     return None
 
 
+def query_property_ids():
+    cmd = '''
+            SELECT id
+            FROM properties
+            ;
+            '''
+    mysql = MySQL(cmd)
+    results = mysql.select()
+    data = [item['property_id'] for item in results]
+    mysql.cursor.close()
+    mysql.cnx.close()
+    return data
 
 
 
