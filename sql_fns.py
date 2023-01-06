@@ -45,7 +45,7 @@ def query_station_ids():
     return data
 
 
-def store_station_data(data):
+def store_station_data(property_id, latitude, longitude, station_id):
 
     cmd = '''
             INSERT INTO weather_stations
@@ -56,7 +56,7 @@ def store_station_data(data):
             '''
     mysql = MySQL(cmd)
     #for data in data_list:
-    mysql.insert(data)
+    mysql.insert((property_id, latitude, longitude, station_id))
     mysql.cursor.close()
     mysql.cnx.commit()
     mysql.cnx.close()
