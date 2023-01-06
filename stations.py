@@ -137,11 +137,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--init_stations', action='store_true', help='Initialize stations table')
     args = parser.parse_args()
-    if args.init_stations:
+    if False:
         initialize_stations_table()
         print('Done')
         return None
-    elif False:
+    elif args.init_stations:
         property_ids = query_property_ids()
         for property_id in property_ids:
             station = WeatherStations(property_id)
