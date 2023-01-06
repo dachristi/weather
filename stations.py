@@ -1,3 +1,6 @@
+#!/home/pc/Envs/weather/bin/python
+# -*- coding: utf-8 -*-
+
 
 import requests
 import json
