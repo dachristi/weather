@@ -41,8 +41,7 @@ class WeatherStations(object):
             #try:
             station_longitude, station_latitude  = station_data['geometry']['coordinates']
             station_id = station_data['properties']['stationIdentifier']
-            print((self.property_id, round(station_latitude, 7), round(station_longitude, 7), station_id))
-            store_station_data((self.property_id, round(station_latitude, 7), round(station_longitude, 7), station_id))
+            store_station_data(self.property_id, round(station_latitude, 7), round(station_longitude, 7), station_id)
             station_count += 1
             # except:
             #     print(station_data)
