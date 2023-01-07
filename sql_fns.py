@@ -56,7 +56,7 @@ def store_station_data(property_id, latitude, longitude, station_id):
             '''
     mysql = MySQL(cmd)
     #for data in data_list:
-    mysql.insert((property_id, latitude, longitude, station_id))
+    mysql.insert(property_id, latitude, longitude, station_id)
     mysql.cursor.close()
     mysql.cnx.commit()
     mysql.cnx.close()
