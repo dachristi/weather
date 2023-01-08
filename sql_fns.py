@@ -3,13 +3,15 @@
 
 
 import json
-import mysql.connector
-
+from pathlib import Path
 from datetime import datetime
+
+import mysql.connector
 
 
 class MySQL(object):
-    config_file = '/Users/dc/Documents/projects/weather/config.json'
+    cur_directory = Path('.')
+    config_file = cur_directory / 'config.json'
     with open(config_file, 'r') as f:
         config = json.load(f)
 
