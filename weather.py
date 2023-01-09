@@ -23,9 +23,9 @@ class WeatherApi(object):
 
 class WeatherData(object):
     '''Class for file objects containing API data'''
-    new_file_directory = Path('data')
-    processed_file_directory = Path('data/processed')
-    error_file_directory = Path('data/error')
+    new_file_directory = Path(__file__).parent.resulve() / 'data'
+    processed_file_directory = new_file_directory / 'processed'
+    error_file_directory = new_file_directory / 'error'
 
     def __init__(self, station_id):
         self.station_id = station_id
