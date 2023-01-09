@@ -10,7 +10,7 @@ import mysql.connector
 
 
 class MySQL(object):
-    cur_directory = Path('.')
+    cur_directory = Path('.').resolve()
     config_file = cur_directory / 'config.json'
     with open(config_file, 'r') as f:
         config = json.load(f)
