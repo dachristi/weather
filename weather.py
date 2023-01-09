@@ -23,7 +23,7 @@ class WeatherApi(object):
 
 class WeatherData(object):
     '''Class for file objects containing API data'''
-    new_file_directory = Path(__file__).parent.resulve() / 'data'
+    new_file_directory = Path(__file__).parent.resolve() / 'data'
     processed_file_directory = new_file_directory / 'processed'
     error_file_directory = new_file_directory / 'error'
 
