@@ -31,9 +31,9 @@ class WeatherData(object):
         self.station_id = station_id
 
         # Create data directories
-        new_file_directory.mkdir(exist_ok=True)
-        processed_file_directory.mkdir(exist_ok=True)
-        error_file_directory.mkdir(exist_ok=True)
+        WeatherData.new_file_directory.mkdir(exist_ok=True)
+        WeatherData.processed_file_directory.mkdir(exist_ok=True)
+        WeatherData.error_file_directory.mkdir(exist_ok=True)
 
     def store_weather_data(self, json_data):
         dt = re.sub(r'[\:\-\s]+', '_', str(datetime.now())).split('.')[0]
