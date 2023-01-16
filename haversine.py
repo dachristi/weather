@@ -2,7 +2,7 @@
 import math
 
 
-def distance(lat1, lon1, lat2, lon2):
+def distance2(lat1, lon1, lat2, lon2):
     lat1 = math.radians(lat1)
     lat2 = math.radians(lat2)
     delta_lat = (lat2 - lat1)
@@ -17,7 +17,7 @@ def distance(lat1, lon1, lat2, lon2):
     return kilometers_to_miles(d)
 
 
-def distance2(lat1, lon1, lat2, lon2):
+def distance(lat1, lon1, lat2, lon2):
     '''
     d=2*asin(sqrt((sin((lat1-lat2)/2))^2 +
                      cos(lat1)*cos(lat2)*(sin((lon1-lon2)/2))^2))
