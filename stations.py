@@ -79,24 +79,5 @@ def nearby_stations(radius=50):
     return None
 
 
-    cmd = '''
-            INSERT IGNORE INTO nearby_stations
-            (distance, station_id, property_id)
-            SELECT
-              SQRT(POWER(p.latitude - s.latitude, 2) +
-                   POWER(p.longitude - s.longitude, 2)) * 69 AS distance,
-              s.station_id,
-              p.id
-            FROM
-              properties p
-              JOIN stations s
-            WHERE SQRT(POWER(p.latitude - s.latitude, 2) +
-                 POWER(p.longitude - s.longitude, 2)) * 69 <= %s
-            ORDER BY 3,1
-            ;
-        '''
-    stations =
-
-
 if __name__ == '__main__':
     main()
