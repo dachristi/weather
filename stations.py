@@ -57,15 +57,14 @@ def nearby_stations(radius=50):
     stations = query_station_data()
     properties = query_property_data()
     station_count = 0
-    for station in stations:
-        station_latitude = station['latitude']
-        station_longitude = station['longitude']
-        station_id = station['station_id']
-        for p in properties:
-            property_latitude = p['latitude']
-            property_longitude = p['longitude']
-            property_id = p['id']
-
+    for p in properties:
+        property_latitude = p['latitude']
+        property_longitude = p['longitude']
+        property_id = p['id']
+        for station in stations:
+            station_latitude = station['latitude']
+            station_longitude = station['longitude']
+            station_id = station['station_id']
             d = distance(station_latitude,
                          station_longitude,
                          property_latitude,
