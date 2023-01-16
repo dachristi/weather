@@ -34,7 +34,7 @@ class MySQL(object):
             results = self.cursor.fetchall()
         return results
 
-    def insert(self, args):
+    def insert(self, *args):
         if args:
             self.cursor.execute(self.cmd, args)
         else:
@@ -53,7 +53,7 @@ def store_nearby_stations(property_id, station_id, distance):
             '''
 
     sql = MySQL(cmd)
-    sql.insert(property_id, station_id, distance)
+    sql.insert((property_id, station_id, distance))
     sql.cursor.close()
     sql.cnx.commit()
     sql.cnx.close()
