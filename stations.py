@@ -71,7 +71,7 @@ def nearby_stations(radius=50):
                          property_latitude,
                          property_longitude)
             if d <= radius:
-                store_nearby_stations(property_id, station_id, distance)
+                store_nearby_stations(property_id, station_id, d)
                 station_count += 1
             else:
                 continue

@@ -53,7 +53,7 @@ def store_nearby_stations(property_id, station_id, distance):
             '''
 
     sql = MySQL(cmd)
-    sql.insert([property_id, station_id, distance])
+    sql.insert((property_id, station_id, distance))
     sql.cursor.close()
     sql.cnx.commit()
     sql.cnx.close()
