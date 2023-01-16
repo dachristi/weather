@@ -36,11 +36,9 @@ def read_station_data(file_path):
 
 
 def stations_api():
-    '''Pull the data and store it in a file'''
-
     url = 'https://api.weather.gov/stations'
-    stations_text = requests.get(url)
-    stations_json = stations_text.json()
+    r_stations = requests.get(url)
+    stations_json = r_stations.json()
     with open('station_data.json', 'w') as f:
         json.dump(stations_json, f)
     return None
