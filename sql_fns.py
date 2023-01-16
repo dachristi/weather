@@ -42,6 +42,23 @@ class MySQL(object):
         return None
 
 
+def store_nearby_stations(property_id, station_id, distance):
+    '''Insert select station data from the json file'''
+
+    cmd = '''
+            INSERT INTO nearby_stations
+            (property_id, station_id, distance)
+            VALUES
+            (%s,%s,%s);
+            '''
+
+    sql = MySQL(cmd)
+    sql.insert((property_id, station_id, distance))
+    sql.cursor.close()
+    sql.cnx.commit()
+    sql.cnx.close()
+
+
 def sql_store_station_data(data_list):
     '''Insert select station data from the json file'''
 
@@ -118,6 +135,41 @@ def query_stations():
     sql.cnx.close()
     station_id_list = [item['station_id'] for item in results]
     return station_id_list
+
+
+def query_property_data():
+    '''
+    Query latitude, longitude, property_id of all properties.
+    '''
+
+    cmd = '''
+            SELECT latitude, longitude, id
+            FROM properties
+            ;
+            '''
+    sql = MySQL(cmd)
+    results = sql.query()
+    sql.cursor.close()
+    sql.cnx.commit()
+    sql.cnx.close()
+    return results
+
+def query_station_data():
+    '''
+    Query latitude, longitude, station_id of all stations.
+    '''
+
+    cmd = '''
+            SELECT latitude, longitude, station_id
+            FROM stations
+            ;
+            '''
+    sql = MySQL(cmd)
+    results = sql.query()
+    sql.cursor.close()
+    sql.cnx.commit()
+    sql.cnx.close()
+    return results
 
 
 def stations_call(property_id):

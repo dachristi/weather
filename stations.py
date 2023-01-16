@@ -1,7 +1,13 @@
 
 import json
 import requests
+
 from sql_fns import sql_store_station_data
+from sql_fns import query_station_data
+from sql_fns import query_property_data
+from sql_fns import store_nearby_stations
+
+from haversine import distance
 
 
 def main():
@@ -42,6 +48,54 @@ def stations_api():
     with open('station_data.json', 'w') as f:
         json.dump(stations_json, f)
     return None
+
+
+def nearby_stations(radius=50):
+    '''
+    Select stations that are within proximity to location of interest.
+    '''
+    stations = query_station_data()
+    properties = query_property_data()
+    station_count = 0
+    for station in stations:
+        station_latitude = station['latitude']
+        station_longitude = station['longitude']
+        station_id = station['station_id']
+        for p in properties:
+            property_latitude = p['latitude']
+            property_longitude = p['longitude']
+            property_id = p['id']
+
+            d = distance(station_latitude,
+                         station_longitude,
+                         property_latitude,
+                         property_longitude)
+            if d <= radius:
+                store_nearby_stations(property_id, station_id, distance)
+                station_count += 1
+            else:
+                continue
+    print('Loaded %d stations into table.' % station_count)
+    return None
+
+
+    cmd = '''
+            INSERT IGNORE INTO nearby_stations
+            (distance, station_id, property_id)
+            SELECT
+              SQRT(POWER(p.latitude - s.latitude, 2) +
+                   POWER(p.longitude - s.longitude, 2)) * 69 AS distance,
+              s.station_id,
+              p.id
+            FROM
+              properties p
+              JOIN stations s
+            WHERE SQRT(POWER(p.latitude - s.latitude, 2) +
+                 POWER(p.longitude - s.longitude, 2)) * 69 <= %s
+            ORDER BY 3,1
+            ;
+        '''
+    stations =
 
 
 if __name__ == '__main__':
