@@ -133,3 +133,4 @@ notes.txt
 run/
 config.json
 data/
+.DS_Store
